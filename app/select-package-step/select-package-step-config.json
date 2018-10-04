@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "addressNode": {
+            "title": "Address Node Name",
+            "type": "string"
+        },
+        "ctaLabel": {
+            "title": "CTA Label",
+            "type": "string"
+        },
+        "packagesNode": {
+            "title": "Packages Node Name",
+            "type": "string"
+        },
+        "selectedPackageNode": {
+            "title": "Selected Package Node Name",
+            "type": "string"
+        },
+        "subTitle": {
+            "title": "Sub-Title",
+            "type": "string"
+        },
+        "title": {
+            "title": "Title",
+            "type": "string"
+        }
+    },
+    "title": "selectPackage",
+    "type": "object"
+}

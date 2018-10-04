@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "addressesNode": {
+            "title": "Addresses Node Name",
+            "type": "string"
+        },
+        "selectedAddressNode": {
+            "title": "Selected Address Node Name",
+            "type": "string"
+        },
+        "subTitle": {
+            "title": "Sub-Title",
+            "type": "string"
+        },
+        "submitLabel": {
+            "title": "Submit Label",
+            "type": "string"
+        },
+        "title": {
+            "title": "Title",
+            "type": "string"
+        }
+    },
+    "title": "selectAddress",
+    "type": "object"
+}

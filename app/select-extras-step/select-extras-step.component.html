@@ -1,0 +1,35 @@
+<h1 *ngIf="config.title">{{ config.title }}</h1>
+<h2 *ngIf="config.subTitle">{{ config.subTitle }}</h2>
+<ng-container *ngFor="let category of config.categories">
+    <h3>{{ category.label }}</h3>
+    <ng-container *ngFor="let extra of extras">
+        <article *ngIf="extra[category.nodeName] === category.nodeValue">
+            <header>
+                {{ extra.extraPackageName }}
+                <img
+                    *ngIf="extra.extraImage"
+                    [src]="'https://www.productsandservices.bt.com/products/options-assets/img/option/' + extra.extraImage + '.png'"
+                >
+            </header>
+            <div>
+                <p [innerHtml]="extra.extraDescription"></p>
+                <br>{{ extra.extraSubtitle !== 'null' ? extra.extraSubtitle : '' }}
+                <app-feature-list
+                    [features]="extra.extraFeatures"
+                    *ngIf="extra.extraFeatures != 'null' && extra.extraFeatures != '[]'"
+                ></app-feature-list>
+            </div>
+            <aside>
+        <span
+            *ngIf="extra.extraCurrentPrice != 'null'"
+        >{{ extra.extraCurrentPrice == 'FREE' || extra.extraCurrentPrice == 'Free' ? extra.extraCurrentPrice : extra.extraCurrentPrice | currency: 'GBP'  }} {{ extra.extraPricePlan }}</span>
+                <button
+                    class="add"
+                    (click)="toggleExtra(extra)"
+                    [class.selected]="selectedExtras.indexOf(extra) > -1"
+                >{{ selectedExtras.indexOf(extra) > -1 ? config.removeCtaLabel : config.addCtaLabel }}</button>
+            </aside>
+        </article>
+    </ng-container>
+</ng-container>
+<button (click)="submit()">{{ config.submitLabel }}</button>

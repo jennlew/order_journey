@@ -1,0 +1,27 @@
+<h1 *ngIf="config.title">{{ config.title }}</h1>
+<h2 *ngIf="config.subTitle">{{ config.subTitle }}</h2>
+<app-address *ngIf="address" [address]="address.getValue()"></app-address>
+<article
+    *ngFor="let package of packages"
+>
+    <header>
+        {{ package.pricing.broadbandValue.broadbandName }}
+    </header>
+    <div>
+
+    </div>
+    <aside>
+        <div class="rewards">
+            {{ package.rewards.rewardsValue }} {{ package.rewards.rewardsStripText }}
+            <br>{{ package.rewards.endText }} {{ package.rewards.rewardsClockEnddate }}
+        </div>
+        <div class="details">
+            {{ package.pricing.offerPrice | currency: 'GBP' }} per month
+            <br>{{ package.pricing.contractLength }}
+            <br>{{ package.pricing.pandp.linerentalText }}
+            <br>full price after {{ package.pricing.contractLength }} {{ package.pricing.fullprice | currency: 'GBP' }}
+            <br>{{ package.pricing.upfrontcost | currency: 'GBP' }} upfront
+            <button (click)="selectPackage(package)">{{ config.ctaLabel }}</button>
+        </div>
+    </aside>
+</article>

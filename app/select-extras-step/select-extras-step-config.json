@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "addCtaLabel": {
+            "title": "Add CTA Label",
+            "type": "string"
+        },
+        "categories": {
+            "type": "array",
+            "items": {
+                "properties": {
+                    "label": {
+                        "type": "string"
+                    },
+                    "nodeName": {
+                        "type": "string"
+                    },
+                    "nodeValue": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "extrasNode": {
+            "title": "Extras Node Name",
+            "type": "string"
+        },
+        "removeCtaLabel": {
+            "title": "Remove CTA Label",
+            "type": "string"
+        },
+        "selectedExtraNode": {
+            "title": "Selected Extra Node Name",
+            "type": "string"
+        },
+        "submitLabel": {
+            "title": "Submit Label",
+            "type": "string"
+        },
+        "subTitle": {
+            "title": "Sub-Title",
+            "type": "string"
+        },
+        "title": {
+            "title": "Title",
+            "type": "string"
+        }
+    },
+    "title": "selectExtras",
+    "type": "object"
+}

@@ -1,0 +1,8 @@
+_satellite.pushAsyncScript(function(event, target, $variables){
+  var pageName = _satellite.getDataElement('Page Name');
+
+if (pageName) {
+  document.cookie = "_analytics_prev_pagename=" + pageName + ";domain=.bt.com;path=/";
+}
+
+});

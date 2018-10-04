@@ -1,0 +1,98 @@
+#liveChat {
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  overflow: visible;
+  height: 175px;
+  left: 0;
+  position: fixed;
+  top: 300px;
+  width: 40px;
+  z-index: 100;
+}
+#liveChat:hover {
+  width: 300px;
+}
+#liveChat h2 {
+  background-color: #6400AA;
+  display: block;
+  width: 40px;
+  height: 115px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin: 0;
+  position: absolute;
+  top: 28px;
+  right: 0;
+}
+#liveChat h2 b {
+  font-size: 20px;
+  font-family: 'BTFont Bold','BT Font Bold', Calibri, Arial, sans-serif;
+  font-weight: normal;
+  color: white;
+  width: 115px;
+  transform: translate(-50%,-50%) rotate(270deg);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+}
+
+#liveChat span {
+  box-sizing: border-box !important;
+  background: #6400AA;
+  color: white;
+  cursor: pointer;
+  float: left;
+  font-size: 10pt;
+  padding: 20px 20px;
+  margin: 0;
+  position: absolute;
+  right: 40px;
+  text-indent: 0;
+  width: 260px;
+  height: 174px;
+}
+#liveChat span h3,
+#liveChat span h4 {
+  margin: 0;
+}
+#liveChat span h3{
+  font-family: 'BTFont Light','BT Font Light', Calibri, Arial, sans-serif;
+  font-size: 28px;
+  font-weight: normal;
+  line-height: 29px;
+}
+#liveChat span h4 {
+  font-family: 'BTFont Bold','BT Font Bold', Calibri, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 5px 0px;
+}
+
+#liveChat span .btn {
+  box-sizing: border-box !important;
+  cursor:pointer;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: inline-block;
+  padding: 0px 20px 0px 20px;
+  height: 40px;
+  min-width: 80px;
+  color: #fff;
+  font-size: 16px;
+  font-family: 'BTFont Regular', 'BT Font Regular', Calibri, Arial, sans-serif;
+  font-weight: normal;
+  line-height: 1;
+  border: none;
+  background: #e60050;
+  border-radius: 5px;
+  outline: none;
+}
+
+#liveChat span .btn:hover,
+.startChatButton:hover 
+{
+    background: #c30d4c !important;
+}

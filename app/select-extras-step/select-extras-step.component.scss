@@ -1,0 +1,44 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+}
+
+article {
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    padding: 1rem 0;
+}
+
+header,
+div,
+aside {
+    flex: 1;
+}
+
+aside {
+    background: #eee;
+    border-top: .5rem solid #666;
+    padding: 2rem;
+}
+
+header {
+    font-size: 3.6rem;
+    text-transform: uppercase;
+    img {
+        display:block;
+    }
+}
+
+button {
+    &.add {
+        background: #fff;
+        border: 1px solid #e60050;
+        color: #e60050;
+    }
+    &.selected {
+        background: #14b437;
+        border-color: #14b437;
+        color: #fff;
+    }
+}

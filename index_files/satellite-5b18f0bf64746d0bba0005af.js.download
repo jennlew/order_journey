@@ -1,0 +1,91 @@
+_satellite.pushBlockingScript(function(event, target, $variables){
+  ! function(e, a) {
+	if (e) {
+		e.debugger.setEnabled(a.settings.isStaging), e.on("Page.viewed", function(e) {
+			var t = e.vendor && e.vendor.adobe && e.vendor.adobe.analytics && e.vendor.adobe.analytics.pageName,
+				n = e.content && e.content.viewed,
+				r = e.chat && e.chat.queue_id;
+			t && a.setVar("page name", t);
+			n && a.setVar("content viewed", n);
+			r && a.setVar("chat session id", r);
+			a.setVar("exhaustEvent", e._event_name), a.track("page_load")
+		}), e.on("Content.viewed", function(e) {
+			var t = e.content && e.content.viewed;
+			t && a.setVar("content viewed", t);
+			a.setVar("exhaustEvent", e._event_name), a.track("link")
+		}), e.on("Interaction.interacted", function(e) {
+			var t = e && e.interaction && e.interaction.link_name;
+			if (!t) return;
+			var n = (a.getVar("Page Name") || "") + ":" + t;
+			a.setVar("exhaustEvent", e._event_name), a.setVar("link name", n), a.track("link")
+		}), e.on("Error.occured", function(e) {
+			var t = (a.getVar("Page Name") || "") + ":";
+			if (window.digitalData && digitalData.chat || window.location.pathname.indexOf("/app/contact_email") > -1)
+				for (var n = e && e.error && e.error.attributes && e.error.attributes.errors, r = 0; r < n.length; r++) {
+					var o = t + n[r];
+					a.setVar("exhaustEvent", e._event_name), a.setVar("error name", o), a.track("error")
+				} else {
+					var o = e && e.error && e.error.label;
+					if (!o) return;
+					var s = t + o;
+					a.setVar("exhaustEvent", e._event_name), a.setVar("error name", s), a.track("error")
+				}
+		});
+		var t, n = "con:sanda:help:va:lightbox",
+			r = !1;
+		e.on("VA.loaded", function(e) {
+			if (r) return;
+			t = "vadeployed";
+			var n = window.VA_AB_HIDDEN ? "no" : "yes",
+				o = s() + ":" + t + ":" + n;
+			a.setVar("exhaustEvent", e._event_name),
+				function(e) {
+					if (!e) return;
+					a.setVar("va onload name", e)
+					//a.track("virtual_assistant_load")
+				}(o)
+		}), e.on("VA.Search.started", function(e) {
+			if (!e.search || !e.search.source) return;
+			t = "va:search";
+			var r = ("banner" === e.search.source ? s() : n) + ":" + t + ":show me answers";
+			a.setVar("exhaustEvent", e._event_name), o(r)
+		}), e.on("VA.Result.shown", function(e) {
+			if (!e.answer || !e.answer.type) return;
+			t = "va:result";
+			var r = n + ":" + e.answer.type;
+			a.setVar("exhaustEvent", e._event_name), e.answer.id && e.answer.title && a.setVar("va article id", e.answer.id + ":" + e.answer.title);
+			o(r)
+		}), e.on("VA.LiveChat.opened", function() {
+			var e = n + ":" + (t = "va:link") + ":Launch BT live chat";
+			a.setVar("exhaustEvent", data._event_name), o(e)
+		}), e.on("VA.RelatedQuestion.selected", function(e) {
+			if (!e.related_question || !e.related_question.title) return;
+			var r = n + ":" + (t = "va:related answers") + ":" + e.related_question.title;
+			a.setVar("exhaustEvent", e._event_name), o(r)
+		}), e.on("VA.Feedback.Helpful.answered", function(e) {
+			if (!e.feedback || !e.feedback.helpful) return;
+			var r = n + ":" + (t = "va:survey") + ":" + (e.feedback.helpful ? "yes" : "no");
+			a.setVar("exhaustEvent", e._event_name), o(r)
+		}), e.on("VA.Feedback.Helpful.negative.given", function() {
+			var e = n + ":" + (t = "va:survey:send us your feedback");
+			a.setVar("exhaustEvent", data._event_name), o(e)
+		}), e.on("VA.Error", function(e) {
+			if (!e.error || !e.error.name) return;
+			var t = vaPageName + ":error:" + vaLastEvent + ":" + e.error.name;
+			a.setVar("exhaustEvent", e._event_name),
+				function(e) {
+					if (!e) return;
+					a.setVar("error name", e), a.track("error")
+				}(t)
+		}), e.on("VA.closed", function() {})
+	}
+
+	function o(e) {
+		e && (a.setVar("link name", e), a.track("link"))
+	}
+
+	function s() {
+		return a.getDataElement("Page Name") || ""
+	}
+}(window._exhaust, window._satellite);
+});

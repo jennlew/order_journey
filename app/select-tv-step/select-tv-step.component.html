@@ -1,0 +1,22 @@
+<article *ngFor="let tv of tvs">
+    <div class="main">
+        <header>
+            welcome discount?
+        </header>
+        <div>
+            {{ tv.bttvPackageName }}
+            <br>{{ tv.bttvSubtitle }}
+            <br><img [src]="'https://www.productsandservices.bt.com/products/options-assets/img/option/' + tv.bttvImage + '.png'">
+        </div>
+        <div>
+            {{ tv.bttvDescription }}
+            <app-feature-list [features]="tv.bttvFeatures"></app-feature-list>
+        </div>
+    </div>
+    <aside>
+        {{ tv.currentPriceTv | currency: 'GBP' }} {{ tv.pricePlanTv }}
+        <br>{{ tv.contractLengthPriceTv }} month contract
+        <br>{{ tv.upfrontCostTv | currency: 'GBP' }} upfront
+        <br><button (click)="selectTv(tv)">{{ config.ctaLabel }}</button>
+    </aside>
+</article>

@@ -1,0 +1,23 @@
+html {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 10px;
+}
+
+body {
+    margin: 1rem;
+}
+
+button {
+    background-color: #e60050;
+    border: none;
+    border-radius: .4rem;
+    color: #fff;
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 400;
+    padding: .7rem 1.4rem;
+
+    &[disabled] {
+        opacity: .5;
+    }
+}

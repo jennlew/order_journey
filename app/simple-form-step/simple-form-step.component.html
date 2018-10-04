@@ -1,0 +1,9 @@
+<h1 *ngIf="config.title">{{ config.title | hbTranslate }}</h1>
+<h2 *ngIf="config.subTitle">{{ config.subTitle | hbTranslate }}</h2>
+<form (ngSubmit)="submitForm()">
+    <hb-node-layout [node]="rootNode"></hb-node-layout>
+    <button
+        type="submit"
+        [disabled]="rootNode.validate() || submitting"
+    >{{ config.submitLabel | hbTranslate }}</button>
+</form>

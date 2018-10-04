@@ -1,0 +1,102 @@
+_satellite.pushAsyncScript(function(event, target, $variables){
+  if (!window.angular || !document.getElementById('scCtrlId')) {
+  log('Angular or the scCtrlID element is missing from the page');
+  return;
+}
+
+var serviceCheckerScope = window.angular.element($('#scCtrlId')).scope();
+
+if (!serviceCheckerScope) {
+  log('scCtrlID element has no scope');
+  return;
+}
+
+// var consent = document.getElementById('test1');
+
+serviceCheckerScope.$watch('scCtrl.landlineValid', handleLandlineValidationChange);
+
+serviceCheckerScope.$watch('scCtrl.postcodeValid', handlePostcodeValidationChange);
+
+serviceCheckerScope.$watch('scCtrl.currentStep', handleStepChange);
+
+function handleLandlineValidationChange(newValue) {
+  if (newValue === false) {
+    trackError('invalid landline');
+  }
+}
+
+function handlePostcodeValidationChange(newValue) {
+  if (newValue === false) {
+    trackError('invalid postcode');
+  }
+}
+
+function handleStepChange(newValue, oldValue, scope) {
+  if (oldValue === 'step1' && newValue === 'step2') {
+    trackStepChange('deals_services-checker/check_now');
+
+    // Note: don't capture landline numbers for now
+    // if (consent && consent.checked && scope.scCtrl.landline && scope.scCtrl.landlineValid) {
+    //   setLandline(scope.scCtrl.landline);
+    // }
+  }
+
+  if (oldValue === 'step2' && newValue === 'step3') {
+    trackStepChange('deals_services-checker/select_your_address');
+  }
+
+  if (oldValue === 'step4' && newValue === 'step5') {
+    _satellite.setVar('service_checker_timestamp', _satellite.getDataElement('Custom Timestamp'));
+    trackStepChange('deals_services-checker-other/see_our_packages');
+  }
+
+  if (newValue === 'error') {
+    trackError('generic');
+  }
+}
+
+function trackStepChange(stepName) {
+  if (!stepName) {
+    return;
+  }
+
+  var trackingValue = (_satellite.getDataElement('Page Name') || '') + ':' + stepName;
+  _satellite.setVar('link name', trackingValue);
+  _satellite.track('link');
+}
+
+function trackError(err) {
+  if (!err) {
+    return;
+  }
+
+  var trackingValue = (_satellite.getDataElement('Page Name') || '') + ':service-checker:' + err;
+  _satellite.setVar('error name', trackingValue);
+  _satellite.track('error');
+}
+
+// function setLandline(landline) {
+//   if(!landline || !landline.length) {
+//     return;
+//   }
+
+//   // create global config variables if not already set
+//   if (!window.sessioncamConfiguration) {
+//     window.sessioncamConfiguration = {};
+//   }
+
+//   if (!window.sessioncamConfiguration.customDataObjects) {
+//     window.sessioncamConfiguration.customDataObjects = [];
+//   }
+
+//   window.sessioncamConfiguration.customDataObjects.push({ key: "SERVICECHECKER_LANDLINE", value: landline });
+// }
+
+function log(msg) {
+  if (window._satellite.settings.notifications && msg) {
+    var message = '[Service Checker]: ' + msg;
+    _satellite.notify(message, 1);
+  }
+}
+
+});

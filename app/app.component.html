@@ -1,0 +1,28 @@
+<header>
+    <h1 (click)="restart()">BT</h1>
+</header>
+<ng-container [ngSwitch]="state">
+    <hb-step-template-outlet
+        (bpe)="state = 'bpe';bpe = $event"
+        (done)="state = 'done'"
+        (error)="state = 'error'"
+        instantiateFlow="linear"
+        *ngSwitchCase="'flow'"
+        [scrollTop]="true"
+    ></hb-step-template-outlet>
+    <div *ngSwitchCase="'done'">
+        <h1>Done</h1>
+        <button (click)="restart()">Restart Journey</button>
+    </div>
+    <div *ngSwitchCase="'error'">
+        <h1>An error occurred.</h1>
+        <button (click)="restart()">Restart Journey</button>
+    </div>
+    <div *ngSwitchCase="'bpe'">
+        <h1>{{ bpe.bpe.title }}</h1>
+        <p>
+            {{ bpe.bpe.eventMessage }}
+        </p>
+        <button (click)="restart()">Restart Journey</button>
+    </div>
+</ng-container>

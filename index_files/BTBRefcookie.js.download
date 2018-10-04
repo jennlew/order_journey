@@ -1,0 +1,50 @@
+/**
+*Add code for vendroid cookie moved from components to here due to permission issues
+*
+**/
+
+$(function() {
+	// returns URL query string parameter value
+		$.urlParam = function(paramName) {
+		var results = new RegExp('[\?&]' + paramName + '=([^&#]*)').exec(window.location.href);
+        if(results != null){
+		   return results[1] || 0;
+		}
+	}
+
+	// Reading vendorId 	
+	var vendorIdValue = $.urlParam('vendorid');
+	if(vendorIdValue != undefined){
+		  createCookie("BTBRef",vendorIdValue,30);
+	}
+});
+
+function createCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+    } else {
+    	var expires = ""; 
+    }
+    
+    if(document.cookie.indexOf(name+'=') == -1){
+          document.cookie = name + "=" + value + expires + ";path=/; domain=.bt.com";
+    } else {
+		var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                var existingvalue=  c.substring(name.length, c.length);
+                if (existingvalue!=value) {
+                   document.cookie = name + "=" + value + expires + ";path=/; domain=.bt.com";
+                }
+            }
+        }
+
+
+    }
+}

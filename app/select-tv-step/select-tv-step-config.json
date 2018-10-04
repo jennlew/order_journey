@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "ctaLabel": {
+            "title": "CTA Label",
+            "type": "string"
+        },
+        "tvsNode": {
+            "title": "TVs Node Name",
+            "type": "string"
+        },
+        "selectedTvNode": {
+            "title": "Selected TV Node Name",
+            "type": "string"
+        },
+        "subTitle": {
+            "title": "Sub-Title",
+            "type": "string"
+        },
+        "title": {
+            "title": "Title",
+            "type": "string"
+        }
+    },
+    "title": "selectTv",
+    "type": "object"
+}

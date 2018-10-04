@@ -1,0 +1,12 @@
+<h1 *ngIf="config.title">{{ config.title }}</h1>
+<h2 *ngIf="config.subTitle">{{ config.subTitle }}</h2>
+<app-address
+    (click)="toggleAddress(address)"
+    *ngFor="let address of addresses"
+    [address]="address"
+    [class.selected]="selectedAddress === address"
+></app-address>
+<button
+    (click)="submitting = true && submit()"
+    [disabled]="rootNode.validate() || submitting"
+>{{ config.submitLabel }}</button>

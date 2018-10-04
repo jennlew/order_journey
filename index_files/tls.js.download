@@ -1,0 +1,66 @@
+
+function tlscheck(url){
+
+  	var value, responseHeaderPart,responseHeader, responseHeaderVersion;
+    var tlsValue = false; /** Make tlsValue to false */ 
+
+    if(sessionStorage && sessionStorage.TLSVersion) {
+        tlsValue = true; /** if TLS is present in session make tlsValue true */
+       value = parseFloat(sessionStorage.getItem("TLSVersion"));        
+    }
+
+    if(!tlsValue){		
+        $.ajax({
+            async: false,
+            method: "GET",         
+            url:url,
+            success: function(data, textStatus, request){
+                responseHeader = request.getResponseHeader('X-SSLProtocol');
+                /**
+                 * Get particular version number
+                 * returns an integer
+                 * @type {Array}
+                 */
+                if(responseHeader !== null && responseHeader !== undefined){
+               		responseHeader = responseHeader.split(',');
+                	isTLS=false;
+                    for (var i = 0; i < responseHeader.length; i++) {
+                        responseHeaderPart = responseHeader[i];
+                        if (responseHeaderPart.indexOf('version=TLS') != -1){
+                            isTLS = true;
+                            responseHeaderVersion = responseHeaderPart.split('=')[1].split('v')[1];
+                            responseHeaderVersion = parseFloat(responseHeaderVersion);
+                            value = responseHeaderVersion;
+                            tlsValue = true;
+                            sessionStorage.setItem("TLSVersion", responseHeaderVersion);
+                        }
+    
+                    }
+                    /**
+                     * Check for the version
+                     */
+                    if(isTLS  && responseHeaderVersion < 1.2) {    
+                        $("#err-msg").removeClass('hide');
+                        return false;
+                    }else{
+                        $("#err-msg").addClass('hide');
+                    }
+                 }else{
+					console.log("X-SSLProtocol Response Header is Null");
+                }
+
+            },
+            error : function(data, xhrStatus){
+                console.log(xhrStatus);
+                console.log("Response Header not found");
+            }
+        });
+    }
+
+    if(value < 1.2) {
+        $("#err-msg").removeClass('hide');
+        return false;
+    } else {
+		$("#err-msg").addClass('hide');
+	}
+}

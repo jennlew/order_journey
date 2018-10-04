@@ -1,0 +1,18 @@
+<div class="ng_component">
+  <!-- todo cant actually use fullName because it wont be unique if we are in an array -->
+  <label [for]="node.fullName">{{ node.title | hbTranslate }}<span *ngIf="node.required">*</span></label>
+  <input
+      [(ngModel)]="node.value"
+      [hbValidateNode]="node"
+      [id]="node.fullName"
+      [max]="node.schema.maximum"
+      [min]="node.schema.minimum"
+      [name]="node.fullName"
+      [required]="node.required"
+      [type]="type"
+      [disabled]="node.readOnly"
+      (keyup)="onKey($event)"
+  >
+  <button type="button" *ngIf="cwsRef" (click)="resume($event)">Resume Journey</button>
+  <em *ngIf="node.error">{{ node.validationMessage | hbTranslate }}</em>
+</div>
